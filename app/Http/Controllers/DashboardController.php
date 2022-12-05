@@ -41,7 +41,9 @@ class DashboardController extends Controller
         $pesanan = explode(",",$request->pesanan);
         $tps = count($pesanan) * 50000;
         
+        // MENGAMBIL DATA UNTUK DIPROSSES
         $ambil = new totalPembayaran($pesanan, $status, $tps);
+        // MENAMPILKAN DATA YANG TELAH DI PR0SSES
         $data = [
             'nama' => $nama,
             'jpesanan' => count($pesanan),
@@ -100,22 +102,19 @@ class DashboardController extends Controller
 }
 
 
-// class bayar{
-//     public function __construct($pesanan, $status) {
-//         $this->pesanan = $pesanan;
-//         $this->status = $status;
-//     }
-    
-// }
+
+// INTERFACES DISKON
 interface discount {
     public function diskon();
 }
+// MENAMPUNG DATA YANG DIKIR1M
 class potongan implements discount {
         public function __construct($pesanan, $status, $tps) {
         $this->pesanan = $pesanan;
         $this->status = $status;
         $this->tps = $tps;
     }
+    // MENGHIUNG DISKON
     public function diskon()
     {
         if ($this->status == 'member' && $this->tps >= 100000) {
@@ -128,6 +127,7 @@ class potongan implements discount {
     }
 }
 class totalPembayaran extends potongan {
+    // MENENTUKAN TOTAL PEMBAYARAN
     public function totalBayar()
     {
         return $this->tps - $this->diskon();
