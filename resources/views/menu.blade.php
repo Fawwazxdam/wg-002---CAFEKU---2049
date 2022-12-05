@@ -59,7 +59,26 @@
                                         <input type="text" class="form-control" name="keterangan" value="{{$menu->keterangan}}">
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">Keterangan</label>
+                                            <label class="form-label">Satus</label>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="flexRadioDefault1" value="tersedia"
+                                                    @if ($menu->status == 'tersedia') @checked(true) @endif>
+                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                    Tersedia
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="status"
+                                                    id="flexRadioDefault2" value="habis"
+                                                    @if ($menu->status != 'tersedia') @checked(true) @endif>
+                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                    Habis
+                                                </label>
+                                            </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Kategori</label>
                                         <select name="kategori_id" id="" class="form-select">
                                             @foreach($data2 as $kategori)
                                                 <option value="{{$kategori->id}}" @selected($menu->kategori_id == $kategori->id)>{{$kategori->nama_kategori}}</option>
